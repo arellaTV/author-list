@@ -73,4 +73,10 @@ order by date_of_birth desc;
 
 ### 2. What is the sales total for the author named “Lorelai Gilmore”?
 
+For this question, I created a new author row with name "Lorelai Gilmore" (nice Gilmore Girls reference!). I also added her fictional birthday. I then added 2 rows for books, setting Lorelai as the author. Finally, I added 4 rows for sale_items (basically 2 sales per book).
+
+<img src="images/lorelai_gilmore.png" />
+<img src="images/books.png" />
+<img src="images/sale_items.png" />
+
 ### 3. What are the top 10 performing authors, ranked by sales revenue?
