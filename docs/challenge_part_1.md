@@ -58,16 +58,16 @@ I then manually executed the SQL statement above. I used DBeaver to add rows to 
 From there, I landed on using this SQL statement to get `the first 10 authors order by date_of_birth` (executing it through DBeaver).
 
 ```sql
-SELECT *
-FROM public.authors
+select *
+from authors
 order by date_of_birth asc;
 ```
 
 The above statement orders by date_of_birth in ascending order. To get the first 10 authors in descending order, you can use this statement:
 
 ```sql
-SELECT *
-FROM public.authors
+select *
+from authors
 order by date_of_birth desc;
 ```
 
@@ -78,5 +78,67 @@ For this question, I created a new author row with name "Lorelai Gilmore" (nice 
 <img src="images/lorelai_gilmore.png" />
 <img src="images/books.png" />
 <img src="images/sale_items.png" />
+
+My next step was to create a join that returns the author of the book of each sale item. I landed on this query:
+
+```sql
+select t1.*, t3.name
+from sale_items t1
+inner join books t2 on t1.book_id = t2.id
+inner join authors t3 on t2.author_id =t3.id
+```
+
+Which returned the following response:
+
+```
+1	1	Jay Arella	$19.99	1	Lorelai Gilmore
+2	1	Jane Doe	$19.99	2	Lorelai Gilmore
+3	2	Mark Roman	$39.99	2	Lorelai Gilmore
+4	2	Ted Daniels	$39.99	5	Lorelai Gilmore
+```
+
+Which still wasn't quite right. We need the total of all the sales for Lorelai. I then turned to using `group by` to group the rows by author name.
+
+```sql
+select sum(t1.item_price), t3.name
+from sale_items t1
+inner join books t2 on t1.book_id = t2.id
+inner join authors t3 on t2.author_id =t3.id
+group by t3.name
+```
+
+This yielded me the following results:
+
+```
+$119.96	Lorelai Gilmore
+```
+
+Almost there. The sum doesn't take the quantity into account. Multiplying quantity by item_price before summing it all up looks like this:
+
+```sql
+select sum(t1.item_price * t1.quantity), t3.name
+from sale_items t1
+inner join books t2 on t1.book_id = t2.id
+inner join authors t3 on t2.author_id =t3.id
+group by t3.name
+```
+
+Which finally yields this:
+
+```sql
+$339.90	Lorelai Gilmore
+```
+
+Which is the value that I expected.
+
+**TLDR;**
+
+```sql
+select sum(t1.item_price * t1.quantity), t3.name
+from sale_items t1
+inner join books t2 on t1.book_id = t2.id
+inner join authors t3 on t2.author_id =t3.id
+group by t3.name
+```
 
 ### 3. What are the top 10 performing authors, ranked by sales revenue?
