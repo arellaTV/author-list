@@ -60,7 +60,8 @@ From there, I landed on using this SQL statement to get `the first 10 authors or
 ```sql
 select *
 from authors
-order by date_of_birth asc;
+order by date_of_birth asc
+limit 10
 ```
 
 The above statement orders by date_of_birth in ascending order. To get the first 10 authors in descending order, you can use this statement:
@@ -68,7 +69,8 @@ The above statement orders by date_of_birth in ascending order. To get the first
 ```sql
 select *
 from authors
-order by date_of_birth desc;
+order by date_of_birth desc
+limit 10
 ```
 
 ### 2. What is the sales total for the author named “Lorelai Gilmore”?
