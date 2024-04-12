@@ -2,8 +2,12 @@
 version: "3.9"
 
 services:
-  krikeydb:
-    image: postgres
+  db:
+    image: db
+    container_name: db
+    build:
+      context: .
+      target: db
     restart: always
     shm_size: 128mb
     ports:
