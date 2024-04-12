@@ -90,7 +90,8 @@ inner join authors t3 on t2.author_id =t3.id
 
 Which returned the following response:
 
-```
+```sql
+id book_id name item_price quantity name
 1	1	Jay Arella	$19.99	1	Lorelai Gilmore
 2	1	Jane Doe	$19.99	2	Lorelai Gilmore
 3	2	Mark Roman	$39.99	2	Lorelai Gilmore
@@ -109,7 +110,8 @@ group by t3.name
 
 This yielded me the following results:
 
-```
+```sql
+sum name
 $119.96	Lorelai Gilmore
 ```
 
@@ -126,6 +128,7 @@ group by t3.name
 Which finally yields this:
 
 ```sql
+sum name
 $339.90	Lorelai Gilmore
 ```
 
@@ -142,3 +145,51 @@ group by t3.name
 ```
 
 ### 3. What are the top 10 performing authors, ranked by sales revenue?
+
+I can leverage the SQL statement I came up with for question 2 to get the top 10 performing authors by sales revenue.
+
+I added a name to the sum like this:
+
+```sql
+select sum(t1.item_price * t1.quantity) as sales_revenue
+```
+
+Then I added an `order by` at the end of the statement like this:
+
+```sql
+order by sales_revenue desc
+```
+
+And finally, I added a `limit` to the end of the query:
+
+```sql
+limit 10
+```
+
+Altogether, the SQL statement looks like this:
+
+```sql
+select sum(t1.item_price * t1.quantity) as sales_revenue, t3.name as author_name
+from sale_items t1
+inner join books t2 on t1.book_id = t2.id
+inner join authors t3 on t2.author_id =t3.id
+group by t3.name
+order by sales_revenue desc
+limit 10
+```
+
+After adding a few more books and sale_items, this is an example response.
+
+```sql
+sales_revenue author_name
+$1,118.88	Gracie Barajas
+$536.00	Alyce Mccormick
+$375.00	Rodney Potts
+$339.90	Lorelai Gilmore
+$159.98	Taylor Cobb
+$119.97	Jayson Huber
+$79.99	Hank Hodge
+$79.96	Darin Hubbard
+$48.00	Elroy Spencer
+$39.98	Steve Bender
+```
