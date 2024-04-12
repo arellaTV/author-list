@@ -1,0 +1,14 @@
+# Use krikey_user/r@nd0mv@lu3 user/password credentials
+version: "3.9"
+
+services:
+  krikeydb:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: r@nd0mv@lu3
+      POSTGRES_USER: krikey_user
+      POSTGRES_DB: krikey_db
