@@ -175,7 +175,7 @@ select sum(t1.item_price * t1.quantity) as sales_revenue, t3.name as author_name
 from sale_items t1
 inner join books t2 on t1.book_id = t2.id
 inner join authors t3 on t2.author_id =t3.id
-group by t3.name
+group by author_name
 order by sales_revenue desc
 limit 10
 ```
