@@ -10,7 +10,7 @@ import {
 import * as Joi from "joi";
 import { Author } from "./models/Author";
 import db from "./config/database";
-import { Op, Sequelize } from "sequelize";
+import { Op } from "sequelize";
 import { SaleItem } from "./models/SaleItem";
 import { Book } from "./models/Book";
 
