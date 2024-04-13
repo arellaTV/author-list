@@ -42,46 +42,40 @@ app.get(
 
     const nameSanitized = author_name?.trim()?.replace(/\W/g, "");
 
-    if (nameSanitized) {
-      const author = await Author.findOne({
-        where: {
-          name: {
-            [Op.iLike]: `%${nameSanitized}%`,
-          },
-        },
-      });
-
-      res.json(author);
-    } else {
-      const topSellingAuthors = await SaleItem.findAll({
-        limit: 10,
-        order: [["sales_revenue", "DESC"]],
-        attributes: [
-          [
-            db.fn("sum", db.literal("(item_price * quantity)")),
-            "sales_revenue",
+    const topSellingAuthors = await SaleItem.findAll({
+      limit: 10,
+      order: [["sales_revenue", "DESC"]],
+      attributes: [
+        [db.fn("sum", db.literal("(item_price * quantity)")), "sales_revenue"],
+      ],
+      include: [
+        {
+          model: Book,
+          required: true,
+          attributes: [],
+          include: [
+            {
+              model: Author,
+              required: true,
+              attributes: ["id", "name"],
+              // If an author_name is included and valid after sanitation,
+              // include it in a `where` statement.
+              ...(nameSanitized && {
+                where: {
+                  name: {
+                    [Op.iLike]: `%${nameSanitized}%`,
+                  },
+                },
+              }),
+            },
           ],
-        ],
-        include: [
-          {
-            model: Book,
-            required: true,
-            attributes: [],
-            include: [
-              {
-                model: Author,
-                required: true,
-                attributes: ["id", "name"],
-              },
-            ],
-          },
-        ],
-        group: "book.author.id",
-        raw: true,
-      });
+        },
+      ],
+      group: "book.author.id",
+      raw: true,
+    });
 
-      res.json(topSellingAuthors);
-    }
+    res.json(topSellingAuthors);
   }
 );
 
