@@ -1,16 +1,12 @@
-const { Sequelize } = require("sequelize");
+const db = require("./config/database");
 
-const DB_CONNECTION_STRING =
-  process.env.DB_CONNECTION_STRING ||
-  "postgres://krikey_user:r@nd0mv@lu3@localhost:5432/krikey_db";
-
-const sequelize = new Sequelize(DB_CONNECTION_STRING);
-
-(async function () {
+const initApp = async () => {
   try {
-    await sequelize.authenticate();
+    await db.authenticate();
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
-})();
+};
+
+initApp();
