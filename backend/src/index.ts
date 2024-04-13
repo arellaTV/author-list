@@ -29,20 +29,24 @@ if (process.env.BACKEND_ORIGIN) {
     ""
   ).replaceAll("http://", "");
 }
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      requestInterceptor: function (request: Request) {
-        request.headers.Origin =
-          process.env.BACKEND_ORIGIN || "http://localhost:8080";
-        return request;
-      },
-      url: `${process.env.BACKEND_ORIGIN || "http://localhost:8080"}/api-doc`,
-    },
-  })
-);
+
+var whitelist = [
+  process.env.FRONTEND_ORIGIN || "http://localhost:3000",
+  process.env.BACKEND_ORIGIN || "http://localhost:8080",
+];
+
+var corsOptions: cors.CorsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin as string) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello world!");
