@@ -1,0 +1,33 @@
+# Author List Backend
+
+A backend app that returns information about top selling authors
+
+## Description
+
+This app was built with Node and written in TypeScript.
+
+## Getting Started
+
+### Run Locally
+
+#### Dependencies
+
+- Node v20
+- Docker (optional)
+- Docker Compose (optional)
+
+### Installing
+
+```sh
+npm install
+```
+
+### Executing the program
+
+To run the program in dev mode
+
+```sh
+npm run dev
+```
+
+And visit http://localhost:8080 to get a "Hello world!" response back.
