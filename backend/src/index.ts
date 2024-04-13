@@ -10,7 +10,7 @@ import {
 import * as Joi from "joi";
 import { Author } from "./models/Author";
 import db from "./config/database";
-import { Op } from "sequelize";
+import { Op, QueryTypes } from "sequelize";
 import { SaleItem } from "./models/SaleItem";
 import { Book } from "./models/Book";
 
@@ -74,6 +74,20 @@ app.get(
       group: "book.author.id",
       raw: true,
     });
+
+    // // Saving the raw query below to use as reference
+    // const topSellingAuthors = await db.query(
+    //   `
+    //   select sum(t1.item_price * t1.quantity) as sales_revenue, t3.name as author_name
+    //   from sale_items t1
+    //   inner join books t2 on t1.book_id = t2.id
+    //   inner join authors t3 on t2.author_id =t3.id
+    //   group by author_name
+    //   order by sales_revenue desc
+    //   limit 10
+    // `,
+    //   { type: QueryTypes.SELECT }
+    // );
 
     res.json(topSellingAuthors);
   }
