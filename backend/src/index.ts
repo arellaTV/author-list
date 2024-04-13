@@ -41,8 +41,8 @@ app.get(
 
     const nameSanitized = author_name
       ?.toLowerCase()
-      ?.replaceAll(" ", "")
-      .replace(/\W/g, "");
+      ?.trim()
+      ?.replace(/\W/g, "");
     res.json({
       message: nameSanitized || "OK",
     });
