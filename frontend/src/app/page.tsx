@@ -18,6 +18,7 @@ async function getAuthors() {
 
 export default async function Home() {
   const authors = await getAuthors();
+  console.log({ authors });
 
   return (
     <main className={styles.main}>

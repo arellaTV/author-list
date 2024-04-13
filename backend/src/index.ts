@@ -1,4 +1,7 @@
+// Initialize environment variables first
 import dotenv from "dotenv";
+dotenv.config();
+
 import express, { Express, Request, Response } from "express";
 import {
   ContainerTypes,
@@ -10,8 +13,6 @@ import {
 import * as Joi from "joi";
 import db from "./config/database";
 import { QueryTypes } from "sequelize";
-
-dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 8080;
