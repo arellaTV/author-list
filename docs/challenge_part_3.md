@@ -18,6 +18,8 @@ The app hits 100 on all Lighthouse score metrics for both mobile and desktop on 
 
 <img src="images/lighthouse_scores.png" >
 
+This score is also reflected on PageSpeed Insights: https://pagespeed.web.dev/analysis/https-author-list-vercel-app/utucqtoxzw?form_factor=mobile
+
 ### How to deploy
 
 For simplicity, I opted to deploy the app like this:
