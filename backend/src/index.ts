@@ -22,6 +22,13 @@ const port = process.env.PORT || 8080;
 const validator = createValidator({ passError: true });
 
 app.use(cors());
+
+if (process.env.BACKEND_ORIGIN) {
+  swaggerDocument.host = process.env.BACKEND_ORIGIN.replaceAll(
+    "https://",
+    ""
+  ).replaceAll("http://", "");
+}
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req: Request, res: Response) => {
