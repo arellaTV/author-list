@@ -37,19 +37,6 @@ if (BACKEND_ORIGIN) {
   }
 }
 
-// var whitelist = [FRONTEND_ORIGIN, BACKEND_ORIGIN];
-
-// var corsOptions: cors.CorsOptions = {
-//   origin: function (origin, callback) {
-//     if (!origin || whitelist.indexOf(origin as string) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-// };
-
-// app.use(cors(corsOptions));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req: Request, res: Response) => {
