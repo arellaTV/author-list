@@ -77,13 +77,13 @@ app.get(
 
     const topSellingAuthors = await db.query(
       `
-      select sum(t1.item_price * t1.quantity) as sales_revenue, t3.name as author_name, t3.email as author_email
+      select sum(t1.item_price * t1.quantity) as sales_revenue, t3.name as name, t3.email as email, t3.profile_photo_path as profile_photo_path
       from sale_items t1
       inner join books t2 on t1.book_id = t2.id
       inner join authors t3 on t2.author_id = t3.id ${
         nameSanitized ? `where t3.name ilike '${nameSanitized}'\n` : ""
       }
-      group by author_name, author_email
+      group by name, email, profile_photo_path
       order by sales_revenue desc
       limit 10
     `,

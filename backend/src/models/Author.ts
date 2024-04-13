@@ -18,6 +18,9 @@ const Author = sequelize.define(
     date_of_birth: {
       type: DataTypes.DATE,
     },
+    profile_photo_path: {
+      type: DataTypes.STRING,
+    },
   },
   {
     indexes: [{ unique: true, fields: ["id"] }],

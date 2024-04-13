@@ -37,18 +37,18 @@ export default async function Home() {
                   key={`author-${author?.id}`}
                 >
                   <Image
-                    src="/images/profile_photo.png"
-                    alt={`Profile photo of ${author?.author_name}`}
+                    src={author?.profile_photo_path}
+                    alt={`Profile photo of ${author?.name}`}
                     width={48}
                     height={48}
                     className={styles["profile-photo"]}
                   />
                   <div className={styles["team-member__details"]}>
                     <div className={styles["team-member__name"]}>
-                      {author?.author_name}
+                      {author?.name}
                     </div>
                     <div className={styles["team-member__email"]}>
-                      {author?.author_email}
+                      {author?.email}
                     </div>
                   </div>
                   <Image
