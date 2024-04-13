@@ -13,7 +13,7 @@ I created a controller method that responds to GET requests at `/authors`. I use
 - When an `author_name` query param is provided, it conditionally adds a `where` clause to find the author.
   - When none is found, it returns a `404 "Author not found"`.
   - When an `author_name` query param is given but left intentionally blank, it returns a `400 "author_name is not allowed to be empty"`.
-- Otherwise, if not `author_name` query param is given, it returns the top 10 best selling authors.
+- Otherwise, if no `author_name` query param is given, it returns the top 10 best selling authors.
 
 I used Sequelize to construct the query, but I also implemented a raw query as well. More details about both queries are in Part 2B.
 

@@ -22,6 +22,15 @@ This app was built with Node and written in TypeScript.
 npm install
 ```
 
+### Set up your database with Docker
+
+Run your docker database with `docker compose`.
+
+```sh
+cd db
+docker compose up -d
+```
+
 ### Set up environment variables
 
 Before running the program, create a .env. You can do that quickly for development like this:

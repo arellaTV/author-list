@@ -31,7 +31,7 @@ Write SQL statements for the following:
 
 ### 1. Who are the first 10 authors ordered by date_of_birth?
 
-In order to solve this problem, I first created my own Postgres database to use as a sandbox. I created the database with Docker using `backend/docker-compose.yml`.
+In order to solve this problem, I first created my own Postgres database to use as a sandbox. I created the database with Docker using `backend/db/docker-compose.yml`.
 
 ```
 # Use krikey_user/r@nd0mv@lu3 user/password credentials
