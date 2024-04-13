@@ -9,6 +9,7 @@ const Navbar = (props: Props) => {
   return (
     <div className={styles.navbar}>
       <div className={styles["navbar-contents"]}>
+        <div className={styles["spacer"]}></div>
         <Link href="/" className={styles["logo-link"]}>
           <Image
             src="/images/logo.svg"
@@ -63,18 +64,14 @@ const Navbar = (props: Props) => {
           </Link>
           <Link href="/" className={styles.navbar__link}>
             About Us
-            <Image
-              className={styles.chevron}
-              src="/icons/chevron_down.svg"
-              width={24}
-              height={23}
-              alt="Expand How to Animate"
-            />
           </Link>
         </nav>
         <Link href="/" className={styles["get-started"]}>
           Get Started
         </Link>
+        <button className={styles.menu}>
+          <Image src="/icons/menu.svg" width={24} height={24} alt="Open menu" />
+        </button>
       </div>
     </div>
   );
