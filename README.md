@@ -19,3 +19,5 @@ Answers to the code challenges can be found in the `/docs` directory. I've also 
 Visit the deployed frontend: https://author-list.vercel.app/
 
 Visit the deployed backend: https://author-list-production.up.railway.app/authors
+
+Visit the deployed swagger docs: https://author-list-production.up.railway.app/api-docs
