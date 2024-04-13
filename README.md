@@ -13,3 +13,9 @@ Answers to the code challenges can be found in the `/docs` directory. I've also 
   - [Backend README.md](backend/README.md)
 - Part 3: [Build & Deploy Webpage](docs/challenge_part_3.md)
   - [Frontend README.md](frontend/README.md)
+
+### Deployed URLs
+
+Visit the deployed frontend: https://author-list.vercel.app/
+
+Visit the deployed backend: https://author-list-production.up.railway.app/authors
