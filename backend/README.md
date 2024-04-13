@@ -22,6 +22,14 @@ This app was built with Node and written in TypeScript.
 npm install
 ```
 
+### Set up environment variables
+
+Before running the program, create a .env. You can do that quickly for development like this:
+
+```sh
+cat .env.example >> .env
+```
+
 ### Executing the program
 
 To run the program in dev mode
