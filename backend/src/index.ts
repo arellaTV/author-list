@@ -42,6 +42,7 @@ app.get(
 
     const nameSanitized = author_name?.trim()?.replace(/[^\w\s]/gi, "");
 
+    // // Saving the sequelize query below to use as reference when comparing against the raw query
     // const topSellingAuthors = await SaleItem.findAll({
     //   limit: 10,
     //   order: [["sales_revenue", "DESC"]],
@@ -77,13 +78,14 @@ app.get(
     //   raw: true,
     // });
 
-    // Saving the raw query below to use as reference when comparing against Sequelize query
     const topSellingAuthors = await db.query(
       `
       select sum(t1.item_price * t1.quantity) as sales_revenue, t3.name as author_name, t3.email as author_email
       from sale_items t1
       inner join books t2 on t1.book_id = t2.id
-      inner join authors t3 on t2.author_id =t3.id
+      inner join authors t3 on t2.author_id = t3.id ${
+        nameSanitized ? `where t3.name ilike '${nameSanitized}'\n` : ""
+      }
       group by author_name, author_email
       order by sales_revenue desc
       limit 10
