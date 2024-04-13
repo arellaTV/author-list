@@ -85,6 +85,8 @@ sum name
 $339.90	Lorelai Gilmore
 ```
 
+This only works because I only had sale_items by Lorelai in my database, but it wouldn't work if I had sale_items from more than one author. To make it so that the results only show for the author, Lorelai Gilmore, I add this line `where t3.name = 'Lorelai Gilmore`.
+
 **TLDR; This is the final query:**
 
 ```sql
@@ -92,6 +94,7 @@ select sum(t1.item_price * t1.quantity), t3.name
 from sale_items t1
 inner join books t2 on t1.book_id = t2.id
 inner join authors t3 on t2.author_id =t3.id
+where t3.name = 'Lorelai Gilmore'
 group by t3.name
 ```
 
