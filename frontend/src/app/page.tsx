@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { Author } from "@/types/models/Author";
 
 async function getAuthors() {
   const res = await fetch("http://localhost:8080/authors");
@@ -30,7 +31,7 @@ export default async function Home() {
           />
           <h1 className={styles.header}>You have 10 Team Members</h1>
           <div>
-            {authors.map((author) => {
+            {authors.map((author: Author) => {
               return (
                 <div
                   className={styles["team-member"]}
