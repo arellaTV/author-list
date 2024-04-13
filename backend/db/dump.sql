@@ -50,7 +50,8 @@ CREATE TABLE public.authors (
     id integer NOT NULL,
     name text,
     email text,
-    date_of_birth timestamp without time zone
+    date_of_birth timestamp without time zone,
+    profile_photo_path text
 );
 
 
@@ -191,23 +192,23 @@ ALTER TABLE ONLY public.sale_items ALTER COLUMN id SET DEFAULT nextval('public.s
 -- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: krikey_user
 --
 
-COPY public.authors (id, name, email, date_of_birth) FROM stdin;
-1	Hank Hodge	hank.hodge@bookly.com	1989-06-01 00:00:00
-2	Darin Hubbard	darin.hubbard@bookly.com	2005-11-05 00:00:00
-3	Jayson Huber	jayson.huber@bookly.com	1998-01-29 00:00:00
-4	Taylor Cobb	taylor.cobb@bookly.com	2005-01-10 00:00:00
-5	Steve Bender	steve.bender@bookly.com	1998-11-09 00:00:00
-6	Rodney Potts	rodney.potts@bookly.com	1991-01-22 00:00:00
-7	Elroy Spencer	elroy.spencer@bookly.com	2005-05-27 00:00:00
-8	Alyce Mccormick	alyce.mccormick@bookly.com	2000-04-09 00:00:00
-9	Candace Deleon	candace.deleon@bookly.com	2003-07-21 00:00:00
-10	Gracie Barajas	gracie.barajas@bookly.com	2001-03-28 00:00:00
-11	Jaime Hayden	jaime.hayden@bookly.com	1985-12-13 00:00:00
-12	Alyssa Saunders	alyssa.saunders@bookly.com	1987-10-25 00:00:00
-13	Nellie Ellison	nellie.ellison@bookly.com	1994-04-03 00:00:00
-14	Cody Frost	cody.frost@bookly.com	1986-02-24 00:00:00
-16	Lorelai Gilmore	lorelai.gilmore@bookly.com	1968-04-25 00:00:00
-15	Cindy Rivers	cindy.rivers@bookly.com	2004-03-13 00:00:00
+COPY public.authors (id, name, email, date_of_birth,profile_photo_path) FROM stdin;
+1	Hank Hodge	hank.hodge@bookly.com	1989-06-01 00:00:00 /images/profile-photos/Group 24.svg
+2	Darin Hubbard	darin.hubbard@bookly.com	2005-11-05 00:00:00 /images/profile-photos/Group 27.svg
+3	Jayson Huber	jayson.huber@bookly.com	1998-01-29 00:00:00 /images/profile-photos/Group 29.svg
+4	Taylor Cobb	taylor.cobb@bookly.com	2005-01-10 00:00:00 /images/profile-photos/Group 26.svg
+5	Steve Bender	steve.bender@bookly.com	1998-11-09 00:00:00 /images/profile-photos/Group 33.svg
+6	Rodney Potts	rodney.potts@bookly.com	1991-01-22 00:00:00 /images/profile-photos/Group 35.svg
+7	Elroy Spencer	elroy.spencer@bookly.com	2005-05-27 00:00:00 /images/profile-photos/Group 37.svg
+8	Alyce Mccormick	alyce.mccormick@bookly.com	2000-04-09 00:00:00 /images/profile-photos/Group 30.svg
+9	Candace Deleon	candace.deleon@bookly.com	2003-07-21 00:00:00 /images/profile-photos/Group 31.svg
+10	Gracie Barajas	gracie.barajas@bookly.com	2001-03-28 00:00:00 /images/profile-photos/Group 32.svg
+11	Jaime Hayden	jaime.hayden@bookly.com	1985-12-13 00:00:00 /images/profile-photos/Group 39.svg
+12	Alyssa Saunders	alyssa.saunders@bookly.com	1987-10-25 00:00:00 /images/profile-photos/Group 34.svg
+13	Nellie Ellison	nellie.ellison@bookly.com	1994-04-03 00:00:00 /images/profile-photos/Group 44.svg
+14	Cody Frost	cody.frost@bookly.com	1986-02-24 00:00:00 /images/profile-photos/Group 48.svg
+16	Lorelai Gilmore	lorelai.gilmore@bookly.com	1968-04-25 00:00:00 /images/profile-photos/Group 38.svg
+15	Cindy Rivers	cindy.rivers@bookly.com	2004-03-13 00:00:00 /images/profile-photos/Group 40.svg
 \.
 
 

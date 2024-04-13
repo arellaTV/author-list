@@ -41,9 +41,3 @@ npm run dev
 ```
 
 And visit http://localhost:3000 to get the homepage that displays the top 10 best selling authors.
-
-### Lighthouse scores
-
-The app scores above 90 on all Lighthouse score metrics for both mobile and desktop.
-
-<img src="../docs/images/lighthouse_scores.png" >
