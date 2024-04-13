@@ -19,27 +19,27 @@ const app: Express = express();
 const port = process.env.PORT || 8080;
 const validator = createValidator({ passError: true });
 
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello world!");
+});
+
 const querySchema = Joi.object({
-  name: Joi.string().optional(),
+  author_name: Joi.string().optional(),
 });
 
 interface AuthorRequestSchema extends ValidatedRequestSchema {
   [ContainerTypes.Query]: {
-    name: string;
+    author_name: string;
   };
 }
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello world!");
-});
 
 app.get(
   "/authors",
   validator.query(querySchema),
   (req: ValidatedRequest<AuthorRequestSchema>, res: Response) => {
-    const { name } = req.query;
+    const { author_name } = req.query;
 
-    const nameSanitized = name
+    const nameSanitized = author_name
       ?.toLowerCase()
       ?.replaceAll(" ", "")
       .replace(/\W/g, "");
