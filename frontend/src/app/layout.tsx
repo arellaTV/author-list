@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ["latin"], weight: ["400", "600", "700"] });
 export const metadata: Metadata = {
   title: "Krikey Code Challenge",
   description: "Built with Next.js, Node, Express, and Sequelize.",
+  openGraph: {
+    images: ["/frontend_screenshot.png"],
+  },
 };
 
 export default function RootLayout({
