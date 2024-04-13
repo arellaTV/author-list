@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize");
+import { Sequelize } from "sequelize";
 
 const DB_CONNECTION_STRING =
   process.env.DB_CONNECTION_STRING ||
@@ -6,4 +6,4 @@ const DB_CONNECTION_STRING =
 
 const sequelize = new Sequelize(DB_CONNECTION_STRING);
 
-module.exports = sequelize;
+export default sequelize;
