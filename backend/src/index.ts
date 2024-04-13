@@ -40,13 +40,15 @@ app.get(
   async (req: ValidatedRequest<AuthorRequestSchema>, res: Response) => {
     const { author_name } = req.query;
 
-    const nameSanitized = author_name?.trim()?.replace(/\W/g, "");
+    const nameSanitized = author_name?.trim()?.replace(/[^\w\s]/gi, "");
 
     const topSellingAuthors = await SaleItem.findAll({
       limit: 10,
       order: [["sales_revenue", "DESC"]],
       attributes: [
         [db.fn("sum", db.literal("(item_price * quantity)")), "sales_revenue"],
+        [db.col("book.author.name"), "author_name"],
+        [db.col("book.author.email"), "author_email"],
       ],
       include: [
         {
@@ -57,13 +59,13 @@ app.get(
             {
               model: Author,
               required: true,
-              attributes: ["id", "name"],
+              attributes: [],
               // If an author_name is included and valid after sanitation,
               // include it in a `where` statement.
               ...(nameSanitized && {
                 where: {
                   name: {
-                    [Op.iLike]: `%${nameSanitized}%`,
+                    [Op.iLike]: nameSanitized,
                   },
                 },
               }),
@@ -75,19 +77,27 @@ app.get(
       raw: true,
     });
 
-    // // Saving the raw query below to use as reference
+    // // Saving the raw query below to use as reference when comparing against Sequelize query
     // const topSellingAuthors = await db.query(
     //   `
-    //   select sum(t1.item_price * t1.quantity) as sales_revenue, t3.name as author_name
+    //   select sum(t1.item_price * t1.quantity) as sales_revenue, t3.name as author_name, t3.email as author_email
     //   from sale_items t1
     //   inner join books t2 on t1.book_id = t2.id
     //   inner join authors t3 on t2.author_id =t3.id
-    //   group by author_name
+    //   group by author_name, author_email
     //   order by sales_revenue desc
     //   limit 10
     // `,
     //   { type: QueryTypes.SELECT }
     // );
+
+    if (nameSanitized && topSellingAuthors[0]) {
+      return res.json(topSellingAuthors[0]);
+    }
+
+    if (nameSanitized && !topSellingAuthors.length) {
+      return res.status(404).json({ error: "Author not found" });
+    }
 
     res.json(topSellingAuthors);
   }
