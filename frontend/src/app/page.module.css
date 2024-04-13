@@ -3,8 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  padding: 8px;
 }
 
 .card-container {
@@ -17,7 +16,6 @@
 
 .card {
   position: relative;
-  width: 100%;
   border-radius: 8px;
   padding: 16px 12px;
   -webkit-box-shadow: 0px 8px 12px -2px rgba(0, 0, 0, 0.08);
@@ -38,21 +36,78 @@
   font-weight: 600;
   text-align: center;
   margin-bottom: 18.5px;
-  margin-top: 0px;
+  margin-top: 48px;
 }
 
 .team-member {
-  padding: 19px 24px;
+  position: relative;
+  padding: 19px 19px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   border-bottom: 1px solid #f4f5f6;
 }
 
 .profile-photo {
   margin-right: 24px;
+  margin-bottom: 8px;
 }
 
 .team-member__details {
-  flex-grow: 1;
   margin-right: 24px;
+  width: 100%;
+}
+
+.team-member__name {
+  font-weight: 700;
+  size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.25px;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-member__email {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.25px;
+  color: #4e616b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-member__dismiss {
+  flex-shrink: 0;
+  position: absolute;
+  right: 9px;
+  top: 51px;
+}
+
+@media only screen and (min-width: 376px) {
+  .main {
+    padding: 16px;
+  }
+
+  .header {
+    margin-top: 0px;
+  }
+
+  .team-member {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0px;
+    padding: 19px 24px;
+  }
+
+  .team-member__details {
+    margin-right: 24px;
+    width: calc(100% - 128px);
+  }
+
+  .team-member__dismiss {
+    right: 24px;
+    position: static;
+  }
 }
