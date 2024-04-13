@@ -18,6 +18,22 @@ The app hits 100 on all Lighthouse score metrics for both mobile and desktop on 
 
 <img src="images/lighthouse_scores.png" >
 
+### How to deploy
+
+For simplicity, I opted to deploy the app like this:
+
+1. Spin up a Postgres instance using [Railway.app](https://railway.app/). Use the `dump.sql` found in `/backend/db/dump.sql` to create the tables and seed the data.
+
+- Once this is set up, grab the connection string and use it in the next step.
+
+2. Spin up a Node deployment in [Railway.app](https://railway.app/) by connecting the GitHub repo and pointing the root directory to `/backend`. Add the connection string found in Step 1 as the environment variable `DB_CONNECTION_STRING`.
+
+- Enable public networking and then visit the public URL. In my case, it was: https://author-list-production.up.railway.app. Visiting should show a `Hello world!`.
+
+3. Spin up a Next.js deployment in [Vercel](https://vercel.com/) by connecting the GitHub repo and pointing the root directory to `/frontend`. Add the environment variable `BACKEND_ORIGIN` and give it the value of the public URL you were assigned in Step 2.
+
+Once that's done, you should have a fully working frontend and backend deployed.
+
 ### Deployed URLs
 
 Visit the deployed frontend: https://author-list.vercel.app/

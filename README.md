@@ -1,8 +1,10 @@
+<img src="frontend/public/favicon.svg" />
+
 ## Krikey Code Challenge
 
 ### Answers
 
-Answers to the code challenges can be found in the `/docs` directory. I've also pasted links to each question below.
+Answers to the code challenges can be found in the `/docs` directory. I've also pasted links to the answer to each question below.
 
 ### Table of Contents
 
