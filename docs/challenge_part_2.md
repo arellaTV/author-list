@@ -45,6 +45,6 @@ http.response_time:
   p99: ........................................ 58.6
 ```
 
-If we look at the mean response time during the same period of time, we see a 43% reduction going from 19.5ms to 11.1ms. We also see dramatic reductions in p95 and p99 (95th and 99th percentile). The reduction is possibly due to less overhead that Sequelize inherently adds when building its queries. This trade-off may or may not be worth it depending on how quickly devs can build queries in sequelize vs raw sql (Sequelize's high level abstraction may make it easier to build faster depending on the task).
+If we look at the mean response time during the same period of time, we see a 43% reduction going from 19.5ms to 11.1ms. We also see dramatic reductions in p95 and p99 (95th and 99th percentile). The reduction is possibly due to less overhead that Sequelize inherently adds when building its queries. This trade-off may or may not be worth it depending on how quickly devs can build queries in sequelize vs raw sql (Sequelize's high level abstraction may make it easier to build faster depending on the task). Of course, we should also take these numbers with a grain of salt as I ran artillery directly against a server running locally.
 
 We can potentially optimize this further by adding caching via Redis, adding appropriate expiration times and cache invalidation with Sequelize hooks.
