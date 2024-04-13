@@ -2,7 +2,7 @@
 
 ### Part 3: Build & Deploy Webpage
 
-I opted to build the frontend with Next.js. Because I'm using raw CSS (via CSS module), I didn't need to import any additional dependencies. The only dependencies imported are the ones included from Next.js
+I opted to build the frontend with Next.js. Because I'm using raw CSS via CSS module, I didn't need to import any additional dependencies. The only dependencies imported are the ones included from Next.js
 
 With Next.js, you can fetch data server side and send down the fully loaded markup on first load. In my implementation, there's no additional JavaScript executed client side once it's loaded.
 

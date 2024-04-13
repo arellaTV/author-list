@@ -2,60 +2,15 @@
 
 ### Part 1: SQL Challenge
 
-Assuming the following tables are created:
-
-```sql
-CREATE TABLE authors (
-id serial PRIMARY KEY,
-name text,
-email text,
-date_of_birth timestamp
-);
-
-CREATE TABLE books (
-id serial PRIMARY KEY,
-author_id integer REFERENCES authors (id),
-isbn text,
-);
-
-CREATE TABLE sale_items (
-id serial PRIMARY KEY,
-book_id integer REFERENCES books (id),
-customer_name text,
-item_price money,
-quantity integer
-);
-```
-
-Write SQL statements for the following:
-
 ### 1. Who are the first 10 authors ordered by date_of_birth?
 
 In order to solve this problem, I first created my own Postgres database to use as a sandbox. I created the database with Docker using `backend/db/docker-compose.yml`.
 
-```
-# Use krikey_user/r@nd0mv@lu3 user/password credentials
-version: "3.9"
-
-services:
-  krikeydb:
-    image: postgres
-    restart: always
-    shm_size: 128mb
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: r@nd0mv@lu3
-      POSTGRES_USER: krikey_user
-      POSTGRES_DB: krikey_db
-
-```
-
-I then manually executed the SQL statement above. I used DBeaver to add rows to each table, first adding 15 authors (using random name and birthday generators I found online).
+I then manually executed the SQL statements to create the tables. I used DBeaver to add rows to each table. I first added 15 authors using random name and birthday generators I found online.
 
 <img src="images/authors_table.png" />
 
-From there, I landed on using this SQL statement to get `the first 10 authors order by date_of_birth` (executing it through DBeaver).
+From there, I used this SQL statement to get the first 10 authors ordered by date_of_birth.
 
 ```sql
 select *
@@ -75,13 +30,9 @@ limit 10
 
 ### 2. What is the sales total for the author named “Lorelai Gilmore”?
 
-For this question, I created a new author row with name "Lorelai Gilmore" (nice Gilmore Girls reference!). I also added her fictional birthday. I then added 2 rows for books, setting Lorelai as the author. Finally, I added 4 rows for sale_items (basically 2 sales per book).
+I created a new author with name "Lorelai Gilmore" (nice Gilmore Girls reference!). I also added her actual birthday. I then added 2 books, setting Lorelai as the author. Finally, I added 4 sale_items (basically 2 sales per book).
 
-<img src="images/lorelai_gilmore.png" />
-<img src="images/books.png" />
-<img src="images/sale_items.png" />
-
-My next step was to create a join that returns the author of the book of each sale item. I landed on this query:
+My next step was to create a join that returns the author of the book of each sale item. I first wrote this query:
 
 ```sql
 select t1.*, t3.name
@@ -100,7 +51,7 @@ id book_id name item_price quantity name
 4	2	Ted Daniels	$39.99	5	Lorelai Gilmore
 ```
 
-Which still wasn't quite right. We need the total of all the sales for Lorelai. I then turned to using `group by` to group the rows by author name.
+Now that I have the author for each sale_item, I can group them together. I used `group by` to group the rows by author name.
 
 ```sql
 select sum(t1.item_price), t3.name
@@ -117,7 +68,7 @@ sum name
 $119.96	Lorelai Gilmore
 ```
 
-Almost there. The sum doesn't take the quantity into account. Multiplying quantity by item_price before summing it all up looks like this:
+Almost there. The sum doesn't take the quantity into account. I wrote another query that multiples the quantity by the item price:
 
 ```sql
 select sum(t1.item_price * t1.quantity), t3.name
@@ -127,16 +78,14 @@ inner join authors t3 on t2.author_id =t3.id
 group by t3.name
 ```
 
-Which finally yields this:
+Which finally yields the correct value:
 
 ```sql
 sum name
 $339.90	Lorelai Gilmore
 ```
 
-Which is the value that I expected.
-
-**TLDR;**
+**TLDR; This is the final query:**
 
 ```sql
 select sum(t1.item_price * t1.quantity), t3.name
@@ -150,13 +99,13 @@ group by t3.name
 
 I can leverage the SQL statement I came up with for question 2 to get the top 10 performing authors by sales revenue.
 
-I added a name to the sum like this:
+I first named the sum, `sales_revenue`:
 
 ```sql
 select sum(t1.item_price * t1.quantity) as sales_revenue
 ```
 
-Then I added an `order by` at the end of the statement like this:
+Then I added an `order by sales_revenue` at the end of the statement like this:
 
 ```sql
 order by sales_revenue desc
