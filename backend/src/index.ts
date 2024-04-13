@@ -2,6 +2,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+import cors from "cors";
 import express, { Express, Request, Response } from "express";
 import {
   ContainerTypes,
@@ -11,12 +12,31 @@ import {
   createValidator,
 } from "express-joi-validation";
 import * as Joi from "joi";
-import db from "./config/database";
 import { QueryTypes } from "sequelize";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json";
+import db from "./config/database";
 
 const app: Express = express();
 const port = process.env.PORT || 8080;
 const validator = createValidator({ passError: true });
+
+var whitelist = [
+  process.env.FRONTEND_ORIGIN || "http://localhost:3000",
+  process.env.BACKEND_ORIGIN || "http://localhost:8080",
+];
+var corsOptions: cors.CorsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin as string) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello world!");

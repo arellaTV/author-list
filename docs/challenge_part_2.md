@@ -15,7 +15,9 @@ I created a controller method that responds to GET requests at `/authors`. I use
   - When an `author_name` query param is given but left intentionally blank, it returns a `400 "author_name is not allowed to be empty"`.
 - Otherwise, if not `author_name` query param is given, it returns the top 10 best selling authors.
 
-I used Sequelize to construct the query, but I also implemented a raw query and commented it out.
+I used Sequelize to construct the query, but I also implemented a raw query as well. More details about both queries are in Part 2B.
+
+Here is a link to the Swagger docs for the API: http://localhost:8080/api-docs
 
 ### Part 2B: API Performance
 

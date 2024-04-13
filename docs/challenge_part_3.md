@@ -39,3 +39,5 @@ Once that's done, you should have a fully working frontend and backend deployed.
 Visit the deployed frontend: https://author-list.vercel.app/
 
 Visit the deployed backend: https://author-list-production.up.railway.app/authors
+
+Visit the deployed swagger docs: https://author-list-production.up.railway.app/api-docs

@@ -1,0 +1,81 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Author List API",
+    "description": "An API that returns the top 10 best selling authors",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/authors": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "author_name",
+            "in": "query",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of authors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "The author's ID"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "The author's name"
+                      },
+                      "email": {
+                        "type": "string",
+                        "description": "The author's email"
+                      },
+                      "date_of_birth": {
+                        "type": "date",
+                        "description": "The author's date of birth"
+                      },
+                      "profile_photo_path": {
+                        "type": "string",
+                        "description": "The author's profile photo path"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Author not found."
+          }
+        }
+      }
+    }
+  }
+}
