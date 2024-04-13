@@ -1,9 +1,10 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Author } from "@/types/models/Author";
+import { BACKEND_ORIGIN } from "@/utils/constants";
 
 async function getAuthors() {
-  const res = await fetch("http://localhost:8080/authors");
+  const res = await fetch(`${BACKEND_ORIGIN}/authors`);
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
