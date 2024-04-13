@@ -10,8 +10,7 @@ import {
 import * as Joi from "joi";
 import { Author } from "./models/Author";
 import db from "./config/database";
-import { Book } from "./models/Book";
-import { SaleItem } from "./models/SaleItem";
+import { Op, Sequelize } from "sequelize";
 
 dotenv.config();
 
@@ -36,16 +35,29 @@ interface AuthorRequestSchema extends ValidatedRequestSchema {
 app.get(
   "/authors",
   validator.query(querySchema),
-  (req: ValidatedRequest<AuthorRequestSchema>, res: Response) => {
+  async (req: ValidatedRequest<AuthorRequestSchema>, res: Response) => {
     const { author_name } = req.query;
 
-    const nameSanitized = author_name
-      ?.toLowerCase()
-      ?.trim()
-      ?.replace(/\W/g, "");
-    res.json({
-      message: nameSanitized || "OK",
-    });
+    const nameSanitized = author_name?.trim()?.replace(/\W/g, "");
+
+    if (nameSanitized) {
+      const author = await Author.findOne({
+        where: {
+          name: {
+            [Op.iLike]: `%${nameSanitized}%`,
+          },
+        },
+      });
+
+      res.json(author);
+    } else {
+      const authors = await Author.findAll({
+        limit: 10,
+        where: {},
+      });
+
+      res.json(authors);
+    }
   }
 );
 
@@ -71,15 +83,6 @@ const initApp = async () => {
   try {
     await db.authenticate();
     console.log("Connection has been established successfully.");
-
-    const authors = await Author.findAll();
-    console.log("All authors:", JSON.stringify(authors, null, 2));
-
-    const books = await Book.findAll();
-    console.log("All books:", JSON.stringify(books, null, 2));
-
-    const saleItems = await SaleItem.findAll();
-    console.log("All saleItems:", JSON.stringify(saleItems, null, 2));
 
     app.listen(port, () => {
       console.log(`[server]: Server is running at http://localhost:${port}`);
