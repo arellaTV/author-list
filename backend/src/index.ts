@@ -11,6 +11,8 @@ import * as Joi from "joi";
 import { Author } from "./models/Author";
 import db from "./config/database";
 import { Op, Sequelize } from "sequelize";
+import { SaleItem } from "./models/SaleItem";
+import { Book } from "./models/Book";
 
 dotenv.config();
 
@@ -51,12 +53,34 @@ app.get(
 
       res.json(author);
     } else {
-      const authors = await Author.findAll({
+      const topSellingAuthors = await SaleItem.findAll({
         limit: 10,
-        where: {},
+        order: [["sales_revenue", "DESC"]],
+        attributes: [
+          [
+            db.fn("sum", db.literal("(item_price * quantity)")),
+            "sales_revenue",
+          ],
+        ],
+        include: [
+          {
+            model: Book,
+            required: true,
+            attributes: [],
+            include: [
+              {
+                model: Author,
+                required: true,
+                attributes: ["id", "name"],
+              },
+            ],
+          },
+        ],
+        group: "book.author.id",
+        raw: true,
       });
 
-      res.json(authors);
+      res.json(topSellingAuthors);
     }
   }
 );

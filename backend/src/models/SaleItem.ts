@@ -34,6 +34,9 @@ const SaleItem = sequelize.define(
   }
 );
 
+Book.hasMany(SaleItem, { foreignKey: "book_id" });
+SaleItem.belongsTo(Book, { foreignKey: "book_id" });
+
 // `sequelize.define` also returns the model
 console.log(SaleItem === sequelize.models.SaleItem); // true
 
