@@ -14,6 +14,12 @@ The added benefits of this approach are:
 
 ### Lighthouse scores
 
-The app scores above 90 on all Lighthouse score metrics for both mobile and desktop.
+The app hits 100 on all Lighthouse score metrics for both mobile and desktop on the deployed app: [https://author-list.vercel.app/](https://author-list.vercel.app/)
 
 <img src="images/lighthouse_scores.png" >
+
+### Deployed URLs
+
+Visit the deployed frontend: https://author-list.vercel.app/
+
+Visit the deployed backend: https://author-list-production.up.railway.app/authors

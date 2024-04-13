@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Krikey Code Challenge",
   description: "Built with Next.js, Node, Express, and Sequelize.",
   openGraph: {
-    images: ["/frontend_screenshot.png"],
+    images: ["/images/frontend_screenshot.png"],
   },
 };
 
