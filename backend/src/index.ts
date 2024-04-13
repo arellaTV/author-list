@@ -23,29 +23,33 @@ const validator = createValidator({ passError: true });
 
 app.use(cors());
 
-if (process.env.BACKEND_ORIGIN) {
-  swaggerDocument.host = process.env.BACKEND_ORIGIN.replaceAll(
-    "https://",
+const BACKEND_ORIGIN = process.env.BACKEND_ORIGIN || "http://localhost:8080";
+
+if (BACKEND_ORIGIN) {
+  swaggerDocument.host = BACKEND_ORIGIN.replaceAll("https://", "").replaceAll(
+    "http://",
     ""
-  ).replaceAll("http://", "");
+  );
+  if (BACKEND_ORIGIN.includes("https://")) {
+    swaggerDocument.schemes = ["https"];
+  } else if (BACKEND_ORIGIN.includes("http://")) {
+    swaggerDocument.schemes = ["http"];
+  }
 }
 
-var whitelist = [
-  process.env.FRONTEND_ORIGIN || "http://localhost:3000",
-  process.env.BACKEND_ORIGIN || "http://localhost:8080",
-];
+// var whitelist = [FRONTEND_ORIGIN, BACKEND_ORIGIN];
 
-var corsOptions: cors.CorsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin as string) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
+// var corsOptions: cors.CorsOptions = {
+//   origin: function (origin, callback) {
+//     if (!origin || whitelist.indexOf(origin as string) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req: Request, res: Response) => {
