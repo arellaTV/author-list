@@ -9,3 +9,10 @@ Then my next step was to create a simple Node script that connects to the Postgr
 After verifying that I could query the authors table. I proceeded to configure Express and set up an endpoint at http://localhost:8080/authors.
 
 I created a controller method that responds to GET requests at `/authors`. I used joi for query param validation.
+
+- When an `author_name` query param is provided, it conditionally adds a `where` clause to find the author.
+  - When none is found, it returns a `404 "Author not found"`.
+  - When an `author_name` query param is given but left intentionally blank, it returns a `400 "author_name is not allowed to be empty"`.
+- Otherwise, if not `author_name` query param is given, it returns the top 10 best selling authors.
+
+I used Sequelize to construct the query, but I also implemented a raw query and commented it out.
