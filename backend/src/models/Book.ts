@@ -31,7 +31,4 @@ const Book = sequelize.define(
 Author.hasMany(Book, { foreignKey: "author_id" });
 Book.belongsTo(Author, { foreignKey: "author_id" });
 
-// `sequelize.define` also returns the model
-console.log(Book === sequelize.models.Book); // true
-
 export { Book, sequelize };

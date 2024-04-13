@@ -29,7 +29,4 @@ const Author = sequelize.define(
   }
 );
 
-// `sequelize.define` also returns the model
-console.log(Author === sequelize.models.Author); // true
-
 export { Author, sequelize };
