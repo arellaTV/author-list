@@ -8,11 +8,8 @@ import {
   createValidator,
 } from "express-joi-validation";
 import * as Joi from "joi";
-import { Author } from "./models/Author";
 import db from "./config/database";
-import { Op, QueryTypes } from "sequelize";
-import { SaleItem } from "./models/SaleItem";
-import { Book } from "./models/Book";
+import { QueryTypes } from "sequelize";
 
 dotenv.config();
 
