@@ -29,7 +29,20 @@ if (process.env.BACKEND_ORIGIN) {
     ""
   ).replaceAll("http://", "");
 }
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      requestInterceptor: function (request: Request) {
+        request.headers.Origin =
+          process.env.BACKEND_ORIGIN || "http://localhost:8080";
+        return request;
+      },
+      url: `${process.env.BACKEND_ORIGIN || "http://localhost:8080"}/api-doc`,
+    },
+  })
+);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello world!");
